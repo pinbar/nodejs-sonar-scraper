@@ -42,12 +42,11 @@ function scrapeProject(projectId) {
 	})
 	.done(function(){
 		console.log(timeUtils.getTime() + ' done with sup-cv2 sonar');
-		awsSonarMetricScraper.scrape(['rubric-ui', 'com.mheducation%3Arubric-services'])
+		awsSonarMetricScraper.scrape(['rubric-ui', 'com.mheducation%3Arubric-services', 'com.mheducation%3Arubric-services%3Adevelop']);
 	});
 }
 
 module.exports = {
-
 	scrape: function scrape(projectIds) {
 		console.log(timeUtils.getTime() + '== starting scraping ==');
 		fileHelper.createFile('Sonar Results');

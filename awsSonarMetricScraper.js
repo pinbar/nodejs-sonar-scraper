@@ -27,7 +27,7 @@ function scrapeProject(projectName) {
 	.get(issueUrl)
 	.then(function (context, results) {
 	    results.projectId = context.get('id').textContent;
-	    results.project = (projectName==='rubric-ui'?'rubric-ui':'rubric-service');
+	    results.project = projectName.replace(/%3A/g,"/").replace("com.mheducation/","");
 	    results.blockerViolations = context.get('msr:first val:first').textContent; 	    
 	    results.criticalViolations = context.get('msr:last val:last').textContent; 	    
 
@@ -38,6 +38,7 @@ function scrapeProject(projectName) {
 		console.log('** error scraping for ' + projectName + ':' + err);
 	})
 	.done(function(){
+		console.log(timeUtils.getTime() + ' done with AWS sonar');
 		console.log(timeUtils.getTime() + ' finalizing file');
 		fileHelper.finalizeFile();
 		console.log(timeUtils.getTime() + '== finished scraping ==');
@@ -45,9 +46,7 @@ function scrapeProject(projectName) {
 }
 
 module.exports = {
-
 	scrape: function scrape(projectNames) {
-
 		for (i = 0; i < projectNames.length; i++) {
 		    scrapeProject(projectNames[i]);
 		}
