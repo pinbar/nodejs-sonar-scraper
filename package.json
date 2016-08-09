@@ -1,0 +1,29 @@
+{
+  "name": "nodejs-sonar-scraper",
+  "version": "1.0.0",
+  "description": "A web scraper built with nodejs and osmosis to get sonar metrics",
+  "main": "sonarScraper.js",
+  "dependencies": {
+    "fast-csv": "^2.0.0",
+    "osmosis": "^1.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pinbar/nodejs-sonar-scraper.git"
+  },
+  "keywords": [
+    "nodejs",
+    "osmosis",
+    "webscraper"
+  ],
+  "author": "PinBar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pinbar/nodejs-sonar-scraper/issues"
+  },
+  "homepage": "https://github.com/pinbar/nodejs-sonar-scraper#readme"
+}
