@@ -9,26 +9,26 @@ var projectUrlPattern = '/sonar/dashboard/index/';
 var projectIds = []
 
 function addProjectIdLToist(projectUrl){
-	if(projectUrl.includes(projectUrlPattern)) {
-		projectIds.push(projectUrl.substring(projectUrlPattern.length));
-	}
+    if(projectUrl.includes(projectUrlPattern)) {
+        projectIds.push(projectUrl.substring(projectUrlPattern.length));
+    }
 }
 
 function generateSonarReport() {
-	osmosis
-	.get(projectListUrl)
-	.find(['#all-projects-table > tbody > tr > td > a@href'])
-	.set('projectUrl')
-	.data(function(results){
-		addProjectIdLToist(results.projectUrl);
-	})
-	.error(function(err){
-		console.log('****** error scraping:' + err);
-	})
-	.done(function(){
-		console.log(timeUtils.getTime() + '** finished building projectIdList **');
-		sonarMetricScraper.scrape(projectIds);
-	});
+    osmosis
+    .get(projectListUrl)
+    .find(['#all-projects-table > tbody > tr > td > a@href'])
+    .set('projectUrl')
+    .data(function(results){
+        addProjectIdLToist(results.projectUrl);
+    })
+    .error(function(err){
+        console.log('****** error scraping:' + err);
+    })
+    .done(function(){
+        console.log(timeUtils.getTime() + '** finished building projectIdList **');
+        sonarMetricScraper.scrape(projectIds);
+    });
 }
 
 console.log(timeUtils.getTime() + '** starting **');
