@@ -1,4 +1,4 @@
-[
-    {"id": 3999, "project": "buip"},
-    {"id": 6309, "project": "c2j"}
-]
+{
+    "supProjects": ["3999","6309"],
+    "awsProjects": ["rubric-ui", "com.mheducation%3Arubric-services"]
+}

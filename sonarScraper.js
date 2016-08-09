@@ -33,9 +33,9 @@ function generateSonarReport() {
 
 console.log(timeUtils.getTime() + '** starting **');
 
-//this will get all the projects and generate a report for all
-generateSonarReport();
+//generate a report for a custom project list
+//var supServerProjectIds = fileUtils.getSupServerProjectIds('./input/sonarProjects.json');
+//sonarMetricScraper.scrape(supServerProjectIds);
 
-//To generate a report for a custom project list
-// var projectIds = fileUtils.getProjectIds('./input/sonarProjects.json');
-// sonarMetricScraper.scrape(projectIds);
+//get all the projects from the sup server sonar home page and generate a report for all
+generateSonarReport();

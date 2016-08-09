@@ -1,11 +1,11 @@
 var osmosis = require('osmosis');
 var timeUtils = require('./utils/timeUtils');
+var fileUtils = require('./utils/fileUtils');
 var awsSonarMetricScraper = require('./awsSonarMetricScraper');
 
 // var fileHelper = require('./txt/textFileHelper');
 var fileHelper = require('./csv/csvFileHelper');
-
-var exlusionProjectList = [5693,4450,15990,5868];
+var awsSonarProjects = fileUtils.getAWSServerProjectIds('./input/sonarProjects.json');
 
 //allow custom max gets
 osmosis.config('concurrency', 50);
@@ -42,7 +42,7 @@ function scrapeProject(projectId) {
     })
     .done(function(){
         console.log(timeUtils.getTime() + ' done with sup-cv2 sonar');
-        awsSonarMetricScraper.scrape(['rubric-ui', 'com.mheducation%3Arubric-services', 'com.mheducation%3Arubric-services%3Adevelop']);
+        awsSonarMetricScraper.scrape(awsSonarProjects);
     });
 }
 
