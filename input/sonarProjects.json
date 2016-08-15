@@ -1,4 +1,5 @@
 {
     "supProjects": ["3999","6309"],
-    "awsProjects": ["rubric-ui", "com.mheducation%3Arubric-services"]
+    "supProjectsExclusionList": ["1","5847","13399","3949","16246","16179","16013","4335","5693","6566","5694"],
+    "awsProjects": ["rubric-ui","com.mheducation%3Arubric-services"]
 }

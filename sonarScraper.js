@@ -5,12 +5,16 @@ var sonarMetricScraper = require('./sonarMetricScraper');
 
 var projectListUrl = 'http://sup-cv2.ced.emhe.mhc/sonar/all_projects';
 var projectUrlPattern = '/sonar/dashboard/index/';
+var supSonarExclusionList = fileUtils.getSupServerExclusionList('./input/sonarProjects.json');
 
 var projectIds = []
 
 function addProjectIdLToist(projectUrl){
     if(projectUrl.includes(projectUrlPattern)) {
-        projectIds.push(projectUrl.substring(projectUrlPattern.length));
+        var projectId = projectUrl.substring(projectUrlPattern.length);
+        if(supSonarExclusionList.indexOf(projectId) < 0) {
+            projectIds.push(projectId);
+        }
     }
 }
 
