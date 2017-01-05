@@ -7,6 +7,8 @@ var fileHelper = require('./csv/csvFileHelper');
 //allow custom max gets
 osmosis.config('concurrency', 5);
 
+var counter = 0;
+
 function scrapeProject(projectName) {
 
     var baseUrl = 'http://awsci.mheducation.com/sonar/'
@@ -38,15 +40,19 @@ function scrapeProject(projectName) {
         console.log('** error scraping for ' + projectName + ':' + err);
     })
     .done(function(){
-        console.log(timeUtils.getTime() + ' done with AWS sonar');
-        console.log(timeUtils.getTime() + ' finalizing file');
-        fileHelper.finalizeFile();
-        console.log(timeUtils.getTime() + '== finished scraping ==');
+        counter = counter - 1;
+        if(counter === 0) {
+            console.log(timeUtils.getTime() + ' done with DLE sonar');
+            console.log(timeUtils.getTime() + ' finalizing file');
+            fileHelper.finalizeFile();
+            console.log(timeUtils.getTime() + '== finished scraping ==');
+        }
     });
 }
 
 module.exports = {
     scrape: function scrape(projectNames) {
+        counter = projectNames.length;
         for (i = 0; i < projectNames.length; i++) {
             scrapeProject(projectNames[i]);
         }

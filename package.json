@@ -4,7 +4,7 @@
   "description": "A web scraper built with nodejs and osmosis to get sonar metrics",
   "main": "sonarScraper.js",
   "dependencies": {
-    "fast-csv": "^2.0.0",
+    "fast-csv": "^2.3.0",
     "osmosis": "^1.0.1"
   },
   "devDependencies": {},

@@ -10,9 +10,11 @@ var awsSonarProjects = fileUtils.getAWSServerProjectIds('./input/sonarProjects.j
 //allow custom max gets
 osmosis.config('concurrency', 50);
 
+var counter = 0;
+
 function scrapeProject(projectId) {
 
-    var baseUrl = 'http://sup-cv2.ced.emhe.mhc/sonar/drilldown/'
+    var baseUrl = 'http://sup-cv4.ced.emhe.mhc/sonar/drilldown/'
     var measuresUTUrl = baseUrl + 'measures/' + projectId + '?metric=coverage';
     var measuresITUrl = baseUrl + 'measures/' + projectId + '?metric=it_coverage';
     var issuessUrl = baseUrl + 'issues/' + projectId;
@@ -41,8 +43,11 @@ function scrapeProject(projectId) {
         console.log('** error scraping for ' + projectId + ':' + err);
     })
     .done(function(){
-        console.log(timeUtils.getTime() + ' done with sup-cv2 sonar');
-        awsSonarMetricScraper.scrape(awsSonarProjects);
+        counter = counter - 1;
+        if(counter === 0) {
+            console.log(timeUtils.getTime() + ' done with ConnectED sonar');
+            awsSonarMetricScraper.scrape(awsSonarProjects);
+        }
     });
 }
 
@@ -50,7 +55,7 @@ module.exports = {
     scrape: function scrape(projectIds) {
         console.log(timeUtils.getTime() + '== starting scraping ==');
         fileHelper.createFile('Sonar Results');
-
+        counter = projectIds.length;
         for (i = 0; i < projectIds.length; i++) {
             scrapeProject(projectIds[i]);
         }
