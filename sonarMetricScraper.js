@@ -5,7 +5,6 @@ var awsSonarMetricScraper = require('./awsSonarMetricScraper');
 
 // var fileHelper = require('./txt/textFileHelper');
 var fileHelper = require('./csv/csvFileHelper');
-var awsSonarProjects = fileUtils.getAWSServerProjectIds('./input/sonarProjects.json');
 
 //allow custom max gets
 osmosis.config('concurrency', 50);
@@ -46,7 +45,7 @@ function scrapeProject(projectId) {
         counter = counter - 1;
         if(counter === 0) {
             console.log(timeUtils.getTime() + ' done with ConnectED sonar');
-            awsSonarMetricScraper.scrape(awsSonarProjects);
+            awsSonarMetricScraper.scrape();
         }
     });
 }

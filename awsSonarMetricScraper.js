@@ -1,5 +1,6 @@
 var osmosis = require('osmosis');
 var timeUtils = require('./utils/timeUtils');
+var fileUtils = require('./utils/fileUtils');
 
 // var fileHelper = require('./txt/textFileHelper');
 var fileHelper = require('./csv/csvFileHelper');
@@ -19,7 +20,7 @@ function scrapeProject(projectName) {
     osmosis
     .get(measuresUTUrl)
     .set({
-        'project':'#bc > li > a',
+        'project':'#context-navigation > div > ul.nav.navbar-nav.nav-crumbs > li > a > span:nth-child(3)',
         'utCoverage':'#m_coverage'
     })
     .get(measuresITUrl)
@@ -29,7 +30,9 @@ function scrapeProject(projectName) {
     .get(issueUrl)
     .then(function (context, results) {
         results.projectId = context.get('id').textContent;
-        results.project = projectName.replace(/%3A/g,"/").replace("com.mheducation/","");
+        //results.project = projectName.replace(/%3A/g,"/").replace("com.mheducation/","");
+        results.project = context.get('name').textContent;
+        console.log(results.project);
         results.blockerViolations = context.get('msr:first val:first').textContent;         
         results.criticalViolations = context.get('msr:last val:last').textContent;      
 
@@ -51,7 +54,8 @@ function scrapeProject(projectName) {
 }
 
 module.exports = {
-    scrape: function scrape(projectNames) {
+    scrape: function scrape() {
+        var projectNames = fileUtils.getAWSServerProjectIds('./input/sonarProjects.json');
         counter = projectNames.length;
         for (i = 0; i < projectNames.length; i++) {
             scrapeProject(projectNames[i]);
