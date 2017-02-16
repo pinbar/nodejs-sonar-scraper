@@ -2,7 +2,6 @@ var osmosis = require('osmosis');
 var timeUtils = require('./utils/time-utils');
 var fileUtils = require('./utils/file-utils');
 
-// var fileHelper = require('./utils/textFileHelper');
 var fileHelper = require('./utils/csv-file-helper');
 var awsApiBaseUrl = 'http://awsci.mheducation.com';
 var supApiBaseUrl = 'http://sup-cv4.ced.emhe.mhc';

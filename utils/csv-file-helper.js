@@ -23,7 +23,7 @@ module.exports = {
     },
 
     finalizeFile: function finalizeFile(){
-        csv.writeToPath("./output/sonarResults."+timeUtils.getDate()+".csv", data, {headers: true})
+        csv.writeToPath("./output/sonar-results."+timeUtils.getDate()+".csv", data, {headers: true})
         .on("finish", function(){
         });
     }
