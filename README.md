@@ -5,17 +5,20 @@
 * **osmosis** - web scraper for nodejs
 * **fast-csv** - csv parser for nodejs
 
+### prerequisites
+* you should have node and npm already installed
+* you should be connected to the MHE VPN to run this tool
+
 ### how to use
 * git clone or download zip
 * in the project directory, run `npm install`
-* run `node` or `node sonarScraper`
+* run `node sonarScraper.js`
 * results are generated in the `/output` directory
-* output file has the run date
+* one output file per run date is generated
 
 ### customize
 * default export format is csv. Choose `textFileHelper` to export as text.
 * project list:
-    * it scrapes the sonar support server home page to get a list of projects
+    * by default, the support server sonar home page is scraped to get a list of the projects
     * alternatively, you can provide a projectId list in `/input.sonarProjects.json`
-    * in addition, it scrapes the awsci sonar home page to get a list of aws projects
-    * the awsci project list can be directly changed in `sonarMetricScraper.scrapeProjects.done()`
+    * in addition, the awsci sonar home page is also scraped to get a list of all aws projects but only the projects from `./input/sonarProjects.json` are included in generating the report
