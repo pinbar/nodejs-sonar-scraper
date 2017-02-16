@@ -1,9 +1,9 @@
 var osmosis = require('osmosis');
-var timeUtils = require('./utils/timeUtils');
-var fileUtils = require('./utils/fileUtils');
+var timeUtils = require('./utils/time-utils');
+var fileUtils = require('./utils/file-utils');
 
-// var fileHelper = require('./txt/textFileHelper');
-var fileHelper = require('./csv/csvFileHelper');
+// var fileHelper = require('./utils/textFileHelper');
+var fileHelper = require('./utils/csv-file-helper');
 var awsApiBaseUrl = 'http://awsci.mheducation.com';
 var supApiBaseUrl = 'http://sup-cv4.ced.emhe.mhc';
 
@@ -33,7 +33,7 @@ function scrapeProject(projectId, baseUrl) {
         fileHelper.appendToFile(data);
     })
     .error(function(err){
-        console.log('** error scraping for ' + projectId + ':' + err);
+        console.log('******** error scraping for ' + url + '********' + err);
     })
     .done(function(){
         counter = counter - 1;
@@ -47,17 +47,18 @@ function scrapeProject(projectId, baseUrl) {
 
 module.exports = {
     scrape: function scrape() {
+        
         console.log(timeUtils.getTime() + '== starting ===');
-        var awsProjects = fileUtils.getAWSServerProjectIds('./input/sonarProjects.json');
-        var supProjects = fileUtils.getSupServerProjectIds('./input/sonarProjects.json');
+        var awsProjects = fileUtils.getAWSServerProjectIds('./input/sonar-projects.json');
+        var supProjects = fileUtils.getSupServerProjectIds('./input/sonar-projects.json');
         var totalProjects = awsProjects.length + supProjects.length;
+        
         //set to the total number of projects
         osmosis.config('concurrency', totalProjects);
         counter = totalProjects;
 
         console.log(timeUtils.getTime() + '== starting aws sonar scraping ===');
         for (i = 0; i < awsProjects.length; i++) {
-        
             scrapeProject(awsProjects[i], awsApiBaseUrl);
         }
         console.log(timeUtils.getTime() + '== done aws sonar scraping ===');

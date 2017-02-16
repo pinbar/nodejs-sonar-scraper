@@ -1,5 +1,5 @@
 var csv = require('fast-csv');
-var timeUtils = require('../utils/timeUtils');
+var timeUtils = require('../utils/time-utils');
 var data = [];
 
 module.exports = {

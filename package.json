@@ -2,7 +2,7 @@
   "name": "nodejs-sonar-scraper",
   "version": "1.0.0",
   "description": "A web scraper built with nodejs and osmosis to get sonar metrics",
-  "main": "sonarScraper.js",
+  "main": "index.js",
   "dependencies": {
     "fast-csv": "^2.3.0",
     "osmosis": "^1.0.1"

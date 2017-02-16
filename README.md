@@ -6,19 +6,17 @@
 * **fast-csv** - csv parser for nodejs
 
 ### prerequisites
-* you should have node and npm already installed
-* you should be connected to the MHE VPN to run this tool
+* node and npm are installed (`node -v` and `npm -v`)
+* computer connected to the MHE VPN (to be able to access the support server and AWS CI)
 
 ### how to use
 * git clone or download zip
 * in the project directory, run `npm install`
-* run `node sonarScraper.js`
-* results are generated in the `/output` directory
-* one output file per run date is generated
+* run `node index.js`
+* results are generated in the `/output` directory as .csv files
+* one output file per run date is generated (same day files are overwritten by the most recent run)
 
 ### customize
-* default export format is csv. Choose `textFileHelper` to export as text.
-* project list:
-    * by default, the support server sonar home page is scraped to get a list of the projects
-    * alternatively, you can provide a projectId list in `/input.sonarProjects.json`
-    * in addition, the awsci sonar home page is also scraped to get a list of all aws projects but only the projects from `./input/sonarProjects.json` are included in generating the report
+* Update the projectId list in `/input.sonar-projects.json`
+    * supProjects are the projects in the datacenter support server
+    * awsProjects are the projects in the AWS CI server
