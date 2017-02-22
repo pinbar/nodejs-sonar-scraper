@@ -17,6 +17,6 @@
 * one output file per run date is generated (same day files are overwritten by the most recent run)
 
 ### customize
-* Update the projectId list in `/input.sonar-projects.json`
+* Update the projectId list in `/input.sonar-projects.json` to add or remove projects
     * supProjects are the projects in the datacenter support server
     * awsProjects are the projects in the AWS CI server

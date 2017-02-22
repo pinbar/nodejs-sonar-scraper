@@ -13,15 +13,9 @@ module.exports = {
                 'Critical Violations': results.criticalViolations
             }
     },
-
-    createFile: function createFile(data){
-        //do nothing
-    },
-
     appendToFile: function appendToFile(row){
         data.push(row);
     },
-
     finalizeFile: function finalizeFile(){
         csv.writeToPath("./output/sonar-results."+timeUtils.getDate()+".csv", data, {headers: true})
         .on("finish", function(){

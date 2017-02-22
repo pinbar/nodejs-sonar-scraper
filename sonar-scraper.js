@@ -1,8 +1,9 @@
 var osmosis = require('osmosis');
+
 var timeUtils = require('./utils/time-utils');
 var fileUtils = require('./utils/file-utils');
-
 var fileHelper = require('./utils/csv-file-helper');
+
 var awsApiBaseUrl = 'http://awsci.mheducation.com';
 var supApiBaseUrl = 'http://sup-cv4.ced.emhe.mhc';
 
@@ -28,6 +29,12 @@ function scrapeProject(projectId, baseUrl) {
         results.blockerViolations = blockerViolations ? blockerViolations.nextSibling.textContent : 0;
         results.criticalViolations = criticalViolations ? criticalViolations.nextSibling.textContent : 0;
 
+        //when UT coverage doesnt exist, AWSCI Sonar shows IT coverage in the coverage section as well (or is it combined?)
+        if(baseUrl === awsApiBaseUrl && results.utCoverage == results.itCoverage) {
+            console.log(timeUtils.getTime() + '== setting AWS project id: ' + results.project +' - unit test coverage to 0 ==');
+            results.utCoverage = 0.00;
+        }
+
         var data = fileHelper.collectData(results);
         fileHelper.appendToFile(data);
     })
@@ -37,7 +44,7 @@ function scrapeProject(projectId, baseUrl) {
     .done(function(){
         counter = counter - 1;
         if(counter === 0) {
-            console.log(timeUtils.getTime() + '== done with all projects. Finalizing file. ==');
+            console.log(timeUtils.getTime() + '== done with all projects ==');
             fileHelper.finalizeFile();
             console.log(timeUtils.getTime() + '== finished ==');
         }
@@ -50,11 +57,10 @@ module.exports = {
         console.log(timeUtils.getTime() + '== starting ===');
         var awsProjects = fileUtils.getAWSServerProjectIds('./input/sonar-projects.json');
         var supProjects = fileUtils.getSupServerProjectIds('./input/sonar-projects.json');
-        var totalProjects = awsProjects.length + supProjects.length;
+        var totalProjectsCount = awsProjects.length + supProjects.length;
         
-        //set to the total number of projects
-        osmosis.config('concurrency', totalProjects);
-        counter = totalProjects;
+        osmosis.config('concurrency', totalProjectsCount);
+        counter = totalProjectsCount;
 
         console.log(timeUtils.getTime() + '== starting aws sonar scraping ===');
         for (i = 0; i < awsProjects.length; i++) {
