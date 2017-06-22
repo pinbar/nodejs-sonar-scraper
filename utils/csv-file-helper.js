@@ -10,7 +10,8 @@ module.exports = {
                 'Unit Test Coverage': results.utCoverage,
                 'Integration Test Coverage': results.itCoverage,
                 'Blocker Violations': results.blockerViolations,
-                'Critical Violations': results.criticalViolations
+                'Critical Violations': results.criticalViolations,
+                'Lines of Code': results.linesOfCode
             }
     },
     appendToFile: function appendToFile(row){

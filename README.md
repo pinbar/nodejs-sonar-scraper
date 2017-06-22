@@ -1,4 +1,4 @@
-## A web page scraper built with nodejs and osmosis to get sonar metrics
+## A scraper built with nodejs and osmosis to get sonar metrics
 
 ### tech stack
 * **nodejs** - javascript runtime built on v8 engine
@@ -7,7 +7,7 @@
 
 ### prerequisites
 * node and npm are installed (`node -v` and `npm -v`)
-* computer connected to the MHE VPN (to be able to access the support server and AWS CI)
+* connected to the MHE VPN (to be able to access the support server and AWS CI)
 
 ### how to use
 * git clone or download zip

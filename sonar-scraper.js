@@ -11,7 +11,7 @@ var counter = 0;
 
 function scrapeProject(projectId, baseUrl) {
     
-    var url = baseUrl + '/sonar/api/resources/index?resource=' + projectId + '&metrics=coverage%2Cit_coverage%2Cblocker_violations%2Ccritical_violations';
+    var url = baseUrl + '/sonar/api/resources/index?resource=' + projectId + '&metrics=coverage%2Cit_coverage%2Cblocker_violations%2Ccritical_violations%2Cncloc';
 
     osmosis
     .get(url)
@@ -19,7 +19,9 @@ function scrapeProject(projectId, baseUrl) {
         var coverage = context.get('key[text()="coverage"]');
         var itCoverage = context.get('key[text()="it_coverage"]');
         var blockerViolations = context.get('key[text()="blocker_violations"]');
-        var criticalViolations = context.get('key[text()="critical-violations"]');
+        var criticalViolations = context.get('key[text()="critical_violations"]');
+        var linesOfCode = context.get('key[text()="ncloc"]');
+
 
         results.projectId = context.get('id').textContent;
         results.project = context.get('name').textContent;
@@ -28,6 +30,7 @@ function scrapeProject(projectId, baseUrl) {
         results.itCoverage = itCoverage ? itCoverage.nextSibling.textContent : 0.00;  
         results.blockerViolations = blockerViolations ? blockerViolations.nextSibling.textContent : 0;
         results.criticalViolations = criticalViolations ? criticalViolations.nextSibling.textContent : 0;
+        results.linesOfCode = linesOfCode ? linesOfCode.nextSibling.textContent : 0;
 
         //when UT coverage doesnt exist, AWSCI Sonar shows IT coverage in the coverage section as well (or is it combined?)
         if(baseUrl === awsApiBaseUrl && results.utCoverage == results.itCoverage) {
